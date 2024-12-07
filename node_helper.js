@@ -4,17 +4,18 @@
  * By Elan Trybuch https://github.com/elaniobro
  * MIT Licensed.
  */
+const Log = require('logger')
 var NodeHelper = require('node_helper')
 var { createClient } = require('mta-realtime-subway-departures')
-var fs = require('fs-extra')
+var fs = require('node:fs')
 var mtaStationIds = require('mta-subway-stations')
 
 module.exports = NodeHelper.create({
   start: function () {
-    console.log( this.name + ' helper method started...'); /*eslint-disable-line*/
+    Log.log( this.name + ' helper method started...')
   },
 
-  getDepartures: function (config) {
+  getDepartures: async function (config) {
     var apiKey = config.apiKey
     var client = createClient(apiKey)
     var self = this
@@ -25,16 +26,16 @@ module.exports = NodeHelper.create({
     var dirDownTown = config.stations.map((obj) => obj.dir.downTown)
     var isList = config.displayType !== 'marquee'
 
-    fs.readFile(
-      `${__dirname}/node_modules/mta-subway-complexes/complexes.json`,
-      'utf8'
-    )
-      .then((data) => {
-        stationIds = JSON.parse(data)
-      })
-      .catch((err) => {
-        throw new Error(err)
-      })
+    try {
+      const data = await fs.promises.readFile(
+        `${__dirname}/node_modules/mta-subway-complexes/complexes.json`,
+        'utf8'
+      )
+
+      stationIds = JSON.parse(data)
+    } catch (err) {
+      Log.error(err)
+    }
 
     client
       .departures(stations)
@@ -184,7 +185,7 @@ module.exports = NodeHelper.create({
         }
       })
       .catch((err) => {
-        throw new Error(err)
+        Log.error(err)
       })
   },
 

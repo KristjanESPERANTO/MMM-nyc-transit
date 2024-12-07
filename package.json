@@ -41,7 +41,6 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "fs-extra": "^11.1.0",
     "husky": "^8.0.3",
     "mta-realtime-subway-departures": "^1.2.1",
     "prettier": "^2.8.4",
