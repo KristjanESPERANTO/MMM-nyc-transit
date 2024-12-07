@@ -15,7 +15,7 @@
 
 1. clone this repo into your moducles directory with the following command: `git clone https://github.com/Elaniobro/MMM-nyc-transit`
 2. install all the npm modules with either `yarn install` or `npm install`
-3. update your [MagicMirror² Config](https://github.com/MichMich/MagicMirror/blob/master/config/config.js.sample), by adding the following object:
+3. update your [MagicMirror² Config](https://github.com/MagicMirrorOrg/MagicMirror/blob/master/config/config.js.sample), by adding the following object:
 
 ```javascript
   {
